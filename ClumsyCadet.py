@@ -91,17 +91,17 @@ def play_game():
         # draw a clean background
         DISPLAY.fill(BLUE)
 
-        # draw score
+        # draw score on the middle of the screen
         draw_text("Score: " + str(score), font, DISPLAY, (SCREENWIDTH/2), SCREENHEIGHT * 0.1)
 
-        # display images, check for collision, and randomly display pipes
+        # display images, check for collision, and randomly display pipe pairs
         '''
         DISPLAY.blit(cadet_image, cadet)
         check_collision()
+        pipe = getRandomPipe()
         DISPLAY.blit(pipe_image, pipe)
-        ~~~~~ PLACE AND ADVANCE PIPES! ~~~~~
+        ~~~~~ ADVANCE PIPES! ~~~~~
         '''
-
 
     pygame.display.update()
     fps_clock.tick(FPS)

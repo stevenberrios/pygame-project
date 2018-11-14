@@ -1,4 +1,3 @@
-from itertools import cycle
 import random, sys, pygame
 
 GAMECAPTION = "Clumsy Cadet"
@@ -18,7 +17,7 @@ NAVYBLUE = (0,   0,   128)
 WHITE =    (255, 255, 255)
 BLACK =    (0,   0,   0)
 
-#images
+# GLOBALS for pictures
 PLAYER = ()
 BACKGROUND = ()
 PIPE = ()
@@ -28,11 +27,11 @@ def init_main_window(dimensions, caption):
     pygame.display.set_caption(caption)
     return pygame.display.set_mode(dimensions)
 
-def move_cadet(cadet, event, dist, display_surf):
-    pass
-
-def check_collapse(cadet, upperPipe, lowerPipe):
-    pass
+def show_score(text, font, display_surf, x, y):
+    textobj = font.render(text, 1, WHITE)
+    textrect = textobj.get_rect()
+    textrect.topleft = (x, y)
+    display_surf.blit(textobj, textrect)
 
 def getRandomPipe():
     """ Return randomly generated pipe """
@@ -47,11 +46,21 @@ def getRandomPipe():
     {'x': pipeX, 'y': gapY + PIPEGAPSIZE}, #lower pipe
     ]
 
-def draw_text(text, font, display_surf, x, y):
-    textobj = font.render(text, 1, WHITE)
-    textrect = textobj.get_rect()
-    textrect.topleft = (x, y)
-    display_surf.blit(textobj, textrect)
+def move_cadet(cadet, event, dist, display_surf):
+    """
+    if event.key == K_UP:
+        cadet.centery = max(cat.centery - dist, 0)
+    if event.key != K_UP:
+        MOVE CADET OBJECT DOWN
+    """
+    pass
+
+def check_collision(cadet, upperPipe, lowerPipe):
+    """ Function that returns a boolean value to see if player collides with pipes
+    and if there is a collision, it restarts the game
+    important function: colliderect()
+    """
+    pass
 
 
 def play_game():
@@ -64,6 +73,14 @@ def play_game():
     score = 0
     font = pygame.font.SysFont(None, 20)
 
+    '''
+    #### load cadet images ####
+    cadet_image = PLAYER[0]
+    cadet = cadet.get_rect()
+
+    #### load pipe images ####
+    '''
+
     #event loop
     while True:
         for event in pygame.event.get():
@@ -74,11 +91,20 @@ def play_game():
         # draw a clean background
         DISPLAY.fill(BLUE)
 
-        draw_text(str(score), font, DISPLAY, 10, 0)
+        # draw score
+        draw_text("Score: " + str(score), font, DISPLAY, (SCREENWIDTH/2), SCREENHEIGHT * 0.1)
+
+        # display images, check for collision, and randomly display pipes
+        '''
+        DISPLAY.blit(cadet_image, cadet)
+        check_collision()
+        DISPLAY.blit(pipe_image, pipe)
+        ~~~~~ PLACE AND ADVANCE PIPES! ~~~~~
+        '''
+
 
     pygame.display.update()
     fps_clock.tick(FPS)
 
 if __name__ == '__main__':
     play_game()
-
